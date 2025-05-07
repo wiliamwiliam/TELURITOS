@@ -1,0 +1,19 @@
+# Calcular promedio y desviación estándar de las densidades para G y Z por separado
+promedio_g = df[df["Muestra"].str.startswith("G")]["Densidad_g_cm3"].mean()
+std_g = df[df["Muestra"].str.startswith("G")]["Densidad_g_cm3"].std()
+
+promedio_z = df[df["Muestra"].str.startswith("Z")]["Densidad_g_cm3"].mean()
+std_z = df[df["Muestra"].str.startswith("Z")]["Densidad_g_cm3"].std()
+
+# Crear filas con los resultados de estadística
+resumen = pd.DataFrame({
+    "Muestra": ["Promedio G", "Desviación G", "Promedio Z", "Desviación Z"],
+    "Masa_seca_g": [None]*4,
+    "Masa_agua_g": [None]*4,
+    "Temperatura_C": [None]*4,
+    "Densidad_g_cm3": [promedio_g, std_g, promedio_z, std_z]
+})
+
+# Combinar la tabla original con el resumen
+df_tabla_final = pd.concat([df_final, resumen], ignore_index=True)
+df_tabla_final
